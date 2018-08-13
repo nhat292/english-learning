@@ -42,15 +42,6 @@ public class SplashActivity extends BaseActivity implements SplashBaseView {
         mPresenter.onAttach(SplashActivity.this);
     }
 
-    /**
-     * Making the screen wait so that the  branding can be shown
-     */
-    @Override
-    public void openLoginActivity() {
-        Intent intent = LoginActivity.getStartIntent(SplashActivity.this);
-        startActivity(intent);
-        finish();
-    }
 
     @Override
     public void openMainActivity() {
@@ -59,10 +50,6 @@ public class SplashActivity extends BaseActivity implements SplashBaseView {
         finish();
     }
 
-    @Override
-    public void startSyncService() {
-//        SyncService.start(this);
-    }
 
     @Override
     protected void onDestroy() {

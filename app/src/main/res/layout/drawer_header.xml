@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@drawable/bg_design"
+    android:background="@color/blue_black_light"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -12,7 +12,7 @@
         android:layout_height="64dp"
         android:layout_marginTop="40dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_mindorks_logo" />
+        android:src="@drawable/ic_account_circle" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -20,13 +20,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Name" />
+        android:text="Nguyen Van Nhat"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/tv_email"
         style="@style/TextStyle.Title.Sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email" />
+        android:text="nhat292@gmail.com"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

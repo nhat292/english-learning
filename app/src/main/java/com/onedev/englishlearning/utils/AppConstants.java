@@ -7,6 +7,8 @@ package com.onedev.englishlearning.utils;
 
 public final class AppConstants {
 
+    public static final int SPLASH_TIMEOUT = 1500;
+
     public static final int API_STATUS_CODE_LOCAL_ERROR = 0;
 
     public static final String DB_NAME = "app.db";

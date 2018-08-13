@@ -39,7 +39,7 @@ public class AppApiHelper implements ApiHelper {
     public Observable<LoginResponse> doGoogleLoginApiCall(LoginRequest.GoogleLoginRequest
                                                                   request) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GOOGLE_LOGIN)
-                .addHeaders(mApiHeader.getPublicApiHeader())
+                .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addBodyParameter(request)
                 .build()
                 .getObjectObservable(LoginResponse.class);
@@ -49,7 +49,7 @@ public class AppApiHelper implements ApiHelper {
     public Observable<LoginResponse> doFacebookLoginApiCall(LoginRequest.FacebookLoginRequest
                                                                     request) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_FACEBOOK_LOGIN)
-                .addHeaders(mApiHeader.getPublicApiHeader())
+                .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addBodyParameter(request)
                 .build()
                 .getObjectObservable(LoginResponse.class);
@@ -59,7 +59,7 @@ public class AppApiHelper implements ApiHelper {
     public Observable<LoginResponse> doServerLoginApiCall(LoginRequest.ServerLoginRequest
                                                                   request) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_SERVER_LOGIN)
-                .addHeaders(mApiHeader.getPublicApiHeader())
+                .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addBodyParameter(request)
                 .build()
                 .getObjectObservable(LoginResponse.class);

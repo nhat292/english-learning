@@ -25,6 +25,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Credentials;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -101,7 +102,7 @@ public class ApplicationModule {
         return new ApiHeader.ProtectedApiHeader(
                 apiKey,
                 preferencesHelper.getCurrentUserId(),
-                preferencesHelper.getAccessToken());
+                Credentials.basic(BuildConfig.USERNAME, BuildConfig.PASSWORD));
     }
 
     @Provides

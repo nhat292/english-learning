@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -19,13 +18,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
-import com.mindorks.placeholderview.SwipeDecor;
-import com.mindorks.placeholderview.SwipePlaceHolderView;
-import com.mindorks.placeholderview.listeners.ItemRemovedListener;
 import com.onedev.englishlearning.BuildConfig;
 import com.onedev.englishlearning.R;
 import com.onedev.englishlearning.data.db.model.Question;
@@ -35,7 +29,6 @@ import com.onedev.englishlearning.ui.custom.RoundedImageView;
 import com.onedev.englishlearning.ui.feed.FeedActivity;
 import com.onedev.englishlearning.ui.login.LoginActivity;
 import com.onedev.englishlearning.ui.main.rating.RateUsDialog;
-import com.onedev.englishlearning.utils.ScreenUtils;
 
 import java.util.List;
 
@@ -65,9 +58,6 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
     @BindView(R.id.tv_app_version)
     TextView mAppVersionTextView;
-
-    @BindView(R.id.cards_container)
-    SwipePlaceHolderView mCardsContainerView;
 
     private TextView mNameTextView;
 
@@ -109,27 +99,12 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
     @Override
     public void refreshQuestionnaire(List<Question> questionList) {
-        for (Question question : questionList) {
-            if (question != null
-                    && question.getOptionList() != null
-                    && question.getOptionList().size() == 3) {
-                mCardsContainerView.addView(new QuestionCard(question));
-            }
-        }
+
     }
 
     @Override
     public void reloadQuestionnaire(List<Question> questionList) {
-        refreshQuestionnaire(questionList);
-        ScaleAnimation animation =
-                new ScaleAnimation(
-                        1.15f, 1, 1.15f, 1,
-                        Animation.RELATIVE_TO_SELF, 0.5f,
-                        Animation.RELATIVE_TO_SELF, 0.5f);
 
-        mCardsContainerView.setAnimation(animation);
-        animation.setDuration(100);
-        animation.start();
     }
 
     @Override
@@ -222,13 +197,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
             ((Animatable) drawable).start();
         }
         switch (item.getItemId()) {
-            case R.id.action_cut:
-                return true;
-            case R.id.action_copy:
-                return true;
             case R.id.action_share:
-                return true;
-            case R.id.action_delete:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -265,34 +234,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
     private void setupCardContainerView() {
 
-        int screenWidth = ScreenUtils.getScreenWidth(this);
-        int screenHeight = ScreenUtils.getScreenHeight(this);
 
-        mCardsContainerView.getBuilder()
-                .setDisplayViewCount(3)
-                .setHeightSwipeDistFactor(10)
-                .setWidthSwipeDistFactor(5)
-                .setSwipeDecor(new SwipeDecor()
-                        .setViewWidth((int) (0.90 * screenWidth))
-                        .setViewHeight((int) (0.75 * screenHeight))
-                        .setPaddingTop(20)
-                        .setSwipeRotationAngle(10)
-                        .setRelativeScale(0.01f));
-
-        mCardsContainerView.addItemRemoveListener(new ItemRemovedListener() {
-            @Override
-            public void onItemRemoved(int count) {
-                if (count == 0) {
-                    // reload the contents again after 1 sec delay
-                    new Handler(getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mPresenter.onCardExhausted();
-                        }
-                    }, 800);
-                }
-            }
-        });
     }
 
     void setupNavMenu() {
@@ -312,9 +254,6 @@ public class MainActivity extends BaseActivity implements MainBaseView {
                                 return true;
                             case R.id.nav_item_rate_us:
                                 mPresenter.onDrawerRateUsClick();
-                                return true;
-                            case R.id.nav_item_feed:
-                                mPresenter.onDrawerMyFeedClick();
                                 return true;
                             case R.id.nav_item_logout:
                                 mPresenter.onDrawerOptionLogoutClick();

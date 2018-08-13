@@ -11,9 +11,6 @@ import com.onedev.englishlearning.ui.base.BaseView;
 
 public interface SplashBaseView extends BaseView {
 
-    void openLoginActivity();
-
     void openMainActivity();
 
-    void startSyncService();
 }

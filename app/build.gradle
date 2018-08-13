@@ -3,6 +3,8 @@ apply plugin: 'org.greenrobot.greendao'
 
 def BaseUrl = '"' + BaseUrl + '"' ?: '"Define app base server url"'
 def ApiKey = '"' + ApiKey + '"' ?: '"Define api key"'
+def UserName = '"' + UserName + '"' ?: '"Define username"'
+def Password = '"' + Password + '"' ?: '"Define password"'
 
 def STRING = 'String'
 
@@ -20,16 +22,18 @@ android {
         each { type ->
             type.buildConfigField STRING, 'BASE_URL', BaseUrl
             type.buildConfigField STRING, 'API_KEY', ApiKey
+            type.buildConfigField STRING, 'USERNAME', UserName
+            type.buildConfigField STRING, 'PASSWORD', Password
         }
     }
     buildTypes {
         debug {
-            resValue "string", "app_name", "Lobbee (d)"
+            resValue "string", "app_name", "English Learning (d)"
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "app_name", "Lobbee"
+            resValue "string", "app_name", "English Learning"
         }
     }
     compileOptions {
@@ -84,9 +88,6 @@ dependencies {
     // code generator for view
     implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
-
-    // swipe view
-    implementation "com.mindorks:placeholderview:$rootProject.placeholderviewVersion"
 
     // logger
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"

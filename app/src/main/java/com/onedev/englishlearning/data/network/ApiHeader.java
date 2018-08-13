@@ -64,13 +64,13 @@ public class ApiHeader {
         private Long mUserId;
 
         @Expose
-        @SerializedName("access_token")
-        private String mAccessToken;
+        @SerializedName("Authorization")
+        private String mAuthorization;
 
-        public ProtectedApiHeader(String mApiKey, Long mUserId, String mAccessToken) {
+        public ProtectedApiHeader(String mApiKey, Long mUserId, String authorization) {
             this.mApiKey = mApiKey;
             this.mUserId = mUserId;
-            this.mAccessToken = mAccessToken;
+            this.mAuthorization = authorization;
         }
 
         public String getApiKey() {
@@ -90,11 +90,11 @@ public class ApiHeader {
         }
 
         public String getAccessToken() {
-            return mAccessToken;
+            return mAuthorization;
         }
 
-        public void setAccessToken(String accessToken) {
-            mAccessToken = accessToken;
+        public void setAccessToken(String authorization) {
+            mAuthorization = authorization;
         }
     }
 }

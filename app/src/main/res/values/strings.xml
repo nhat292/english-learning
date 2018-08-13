@@ -1,4 +1,11 @@
 <resources>
+
+    <!--Splash screen-->
+    <string name="welcome">WELCOME</string>
+    <string name="copyright">Copyright &#169; 2018 ONE_DEV. All right reserved</string>
+
+    <!--Main screen-->
+
     <!--Toolbar menus-->
     <string name="clear">Clear</string>
     <string name="cut">Cut</string>
