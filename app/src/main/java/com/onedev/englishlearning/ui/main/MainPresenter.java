@@ -3,16 +3,12 @@ package com.onedev.englishlearning.ui.main;
 
 import com.androidnetworking.error.ANError;
 import com.onedev.englishlearning.data.DataManager;
-import com.onedev.englishlearning.data.db.model.Question;
 import com.onedev.englishlearning.ui.base.BasePresenter;
 import com.onedev.englishlearning.utils.rx.SchedulerProvider;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 
 
 /**
@@ -75,43 +71,24 @@ public class MainPresenter<V extends MainBaseView> extends BasePresenter<V>
 
     @Override
     public void onViewInitialized() {
-        getCompositeDisposable().add(getDataManager()
-                .getAllQuestions()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<List<Question>>() {
-                    @Override
-                    public void accept(List<Question> questionList) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        if (questionList != null) {
-                            getMvpView().refreshQuestionnaire(questionList);
-                        }
-                    }
-                }));
+//        getCompositeDisposable().add(getDataManager()
+//                .getAllQuestions()
+//                .subscribeOn(getSchedulerProvider().io())
+//                .observeOn(getSchedulerProvider().ui())
+//                .subscribe(new Consumer<List<Question>>() {
+//                    @Override
+//                    public void accept(List<Question> questionList) throws Exception {
+//                        if (!isViewAttached()) {
+//                            return;
+//                        }
+//
+//                        if (questionList != null) {
+//                            getMvpView().refreshQuestionnaire(questionList);
+//                        }
+//                    }
+//                }));
     }
 
-    @Override
-    public void onCardExhausted() {
-        getCompositeDisposable().add(getDataManager()
-                .getAllQuestions()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<List<Question>>() {
-                    @Override
-                    public void accept(List<Question> questionList) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        if (questionList != null) {
-                            getMvpView().reloadQuestionnaire(questionList);
-                        }
-                    }
-                }));
-    }
 
     @Override
     public void onNavMenuCreated() {
@@ -120,31 +97,25 @@ public class MainPresenter<V extends MainBaseView> extends BasePresenter<V>
         }
         getMvpView().updateAppVersion();
 
-        final String currentUserName = getDataManager().getCurrentUserName();
-        if (currentUserName != null && !currentUserName.isEmpty()) {
-            getMvpView().updateUserName(currentUserName);
-        }
-
-        final String currentUserEmail = getDataManager().getCurrentUserEmail();
-        if (currentUserEmail != null && !currentUserEmail.isEmpty()) {
-            getMvpView().updateUserEmail(currentUserEmail);
-        }
-
-        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
-        if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
-            getMvpView().updateUserProfilePic(profilePicUrl);
-        }
+//        final String currentUserName = getDataManager().getCurrentUserName();
+//        if (currentUserName != null && !currentUserName.isEmpty()) {
+//            getMvpView().updateUserName(currentUserName);
+//        }
+//
+//        final String currentUserEmail = getDataManager().getCurrentUserEmail();
+//        if (currentUserEmail != null && !currentUserEmail.isEmpty()) {
+//            getMvpView().updateUserEmail(currentUserEmail);
+//        }
+//
+//        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
+//        if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+//            getMvpView().updateUserProfilePic(profilePicUrl);
+//        }
     }
 
     @Override
     public void onDrawerRateUsClick() {
         getMvpView().closeNavigationDrawer();
         getMvpView().showRateUsDialog();
-    }
-
-    @Override
-    public void onDrawerMyFeedClick() {
-        getMvpView().closeNavigationDrawer();
-        getMvpView().openMyFeedActivity();
     }
 }

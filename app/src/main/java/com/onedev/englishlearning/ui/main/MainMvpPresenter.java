@@ -18,11 +18,7 @@ public interface MainMvpPresenter<V extends MainBaseView> extends MvpPresenter<V
 
     void onDrawerRateUsClick();
 
-    void onDrawerMyFeedClick();
-
     void onViewInitialized();
-
-    void onCardExhausted();
 
     void onNavMenuCreated();
 }

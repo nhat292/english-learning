@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -22,15 +22,14 @@ import android.widget.TextView;
 
 import com.onedev.englishlearning.BuildConfig;
 import com.onedev.englishlearning.R;
-import com.onedev.englishlearning.data.db.model.Question;
+import com.onedev.englishlearning.adapter.MainAdapter;
+import com.onedev.englishlearning.data.model.MainLibrary;
 import com.onedev.englishlearning.ui.about.AboutFragment;
 import com.onedev.englishlearning.ui.base.BaseActivity;
-import com.onedev.englishlearning.ui.custom.RoundedImageView;
-import com.onedev.englishlearning.ui.feed.FeedActivity;
 import com.onedev.englishlearning.ui.login.LoginActivity;
 import com.onedev.englishlearning.ui.main.rating.RateUsDialog;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -59,11 +58,11 @@ public class MainActivity extends BaseActivity implements MainBaseView {
     @BindView(R.id.tv_app_version)
     TextView mAppVersionTextView;
 
-    private TextView mNameTextView;
+    @BindView(R.id.recyclerViewMain)
+    RecyclerView recyclerViewMain;
 
-    private TextView mEmailTextView;
-
-    private RoundedImageView mProfileImageView;
+    private ArrayList<MainLibrary> mMainLibraries;
+    private MainAdapter mMainAdapter;
 
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -98,34 +97,9 @@ public class MainActivity extends BaseActivity implements MainBaseView {
     }
 
     @Override
-    public void refreshQuestionnaire(List<Question> questionList) {
-
-    }
-
-    @Override
-    public void reloadQuestionnaire(List<Question> questionList) {
-
-    }
-
-    @Override
     public void updateAppVersion() {
         String version = getString(R.string.version) + " " + BuildConfig.VERSION_NAME;
         mAppVersionTextView.setText(version);
-    }
-
-    @Override
-    public void updateUserName(String currentUserName) {
-        mNameTextView.setText(currentUserName);
-    }
-
-    @Override
-    public void updateUserEmail(String currentUserEmail) {
-        mEmailTextView.setText(currentUserEmail);
-    }
-
-    @Override
-    public void updateUserProfilePic(String currentUserProfilePicUrl) {
-        //load profile pic url into ANImageView
     }
 
     @Override
@@ -228,39 +202,32 @@ public class MainActivity extends BaseActivity implements MainBaseView {
         mDrawerToggle.syncState();
         setupNavMenu();
         mPresenter.onNavMenuCreated();
-        setupCardContainerView();
         mPresenter.onViewInitialized();
-    }
 
-    private void setupCardContainerView() {
-
-
+        mMainLibraries = new ArrayList<>();
+        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 1", "Lorem lorem lorem lorem lorem"));
+        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 2", "Lorem lorem lorem lorem lorem"));
+        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 3", "Lorem lorem lorem lorem lorem"));
+        mMainAdapter = new MainAdapter(mMainLibraries);
+        recyclerViewMain.setAdapter(mMainAdapter);
     }
 
     void setupNavMenu() {
-        View headerLayout = mNavigationView.getHeaderView(0);
-        mProfileImageView = (RoundedImageView) headerLayout.findViewById(R.id.iv_profile_pic);
-        mNameTextView = (TextView) headerLayout.findViewById(R.id.tv_name);
-        mEmailTextView = (TextView) headerLayout.findViewById(R.id.tv_email);
-
         mNavigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        mDrawer.closeDrawer(GravityCompat.START);
-                        switch (item.getItemId()) {
-                            case R.id.nav_item_about:
-                                mPresenter.onDrawerOptionAboutClick();
-                                return true;
-                            case R.id.nav_item_rate_us:
-                                mPresenter.onDrawerRateUsClick();
-                                return true;
-                            case R.id.nav_item_logout:
-                                mPresenter.onDrawerOptionLogoutClick();
-                                return true;
-                            default:
-                                return false;
-                        }
+                item -> {
+                    mDrawer.closeDrawer(GravityCompat.START);
+                    switch (item.getItemId()) {
+                        case R.id.nav_item_about:
+                            mPresenter.onDrawerOptionAboutClick();
+                            return true;
+                        case R.id.nav_item_rate_us:
+                            mPresenter.onDrawerRateUsClick();
+                            return true;
+                        case R.id.nav_item_logout:
+                            mPresenter.onDrawerOptionLogoutClick();
+                            return true;
+                        default:
+                            return false;
                     }
                 });
     }
@@ -274,11 +241,6 @@ public class MainActivity extends BaseActivity implements MainBaseView {
     @Override
     public void showRateUsDialog() {
         RateUsDialog.newInstance().show(getSupportFragmentManager());
-    }
-
-    @Override
-    public void openMyFeedActivity() {
-        startActivity(FeedActivity.getStartIntent(this));
     }
 
     @Override

@@ -13,6 +13,7 @@
     <string name="paste">Paste</string>
     <string name="delete">Delete</string>
     <string name="share">Share</string>
+    <string name="favorites">Favorites</string>
 
     <!--Drawer-->
     <string name="open_drawer">Drawer Open</string>

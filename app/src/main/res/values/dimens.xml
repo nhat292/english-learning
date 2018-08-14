@@ -12,4 +12,12 @@
     <dimen name="text_size_small">15sp</dimen>
     <dimen name="text_size_very_small">12sp</dimen>
     <dimen name="texts_size_tiny">8sp</dimen>
+
+    <!--Margin padding-->
+    <dimen name="margin_padding_50dp">50dp</dimen>
+    <dimen name="margin_padding_40dp">40dp</dimen>
+    <dimen name="margin_padding_30dp">30dp</dimen>
+    <dimen name="margin_padding_20dp">20dp</dimen>
+    <dimen name="margin_padding_10dp">10dp</dimen>
+    <dimen name="margin_padding_5dp">5dp</dimen>
 </resources>

@@ -2,9 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <item
+        android:id="@+id/action_favorites"
+        android:icon="@drawable/ic_favorite_black_24dp"
+        android:title="@string/favorites"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_share"
-        android:icon="@drawable/avd_share"
+        android:icon="@drawable/ic_share_white_24px"
         android:title="@string/share"
         app:showAsAction="always" />
 
