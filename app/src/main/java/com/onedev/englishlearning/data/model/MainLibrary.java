@@ -5,11 +5,13 @@ public class MainLibrary {
     private int resId;
     private String title;
     private String description;
+    private int dbNumber;
 
-    public MainLibrary(int resId, String title, String description) {
+    public MainLibrary(int resId, String title, String description, int dbNumber) {
         this.resId = resId;
         this.title = title;
         this.description = description;
+        this.dbNumber = dbNumber;
     }
 
     public int getResId() {
@@ -34,5 +36,13 @@ public class MainLibrary {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getDbNumber() {
+        return dbNumber;
+    }
+
+    public void setDbNumber(int dbNumber) {
+        this.dbNumber = dbNumber;
     }
 }

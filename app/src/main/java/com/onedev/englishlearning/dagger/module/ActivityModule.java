@@ -12,6 +12,15 @@ import com.onedev.englishlearning.data.network.model.OpenSourceResponse;
 import com.onedev.englishlearning.ui.about.AboutBaseView;
 import com.onedev.englishlearning.ui.about.AboutMvpPresenter;
 import com.onedev.englishlearning.ui.about.AboutPresenter;
+import com.onedev.englishlearning.ui.category.CategoryBaseView;
+import com.onedev.englishlearning.ui.category.CategoryMvpPresenter;
+import com.onedev.englishlearning.ui.category.CategoryPresenter;
+import com.onedev.englishlearning.ui.detail.DetailBaseView;
+import com.onedev.englishlearning.ui.detail.DetailMvpPresenter;
+import com.onedev.englishlearning.ui.detail.DetailPresenter;
+import com.onedev.englishlearning.ui.favorite.FavoriteBaseView;
+import com.onedev.englishlearning.ui.favorite.FavoriteMvpPresenter;
+import com.onedev.englishlearning.ui.favorite.FavoritePresenter;
 import com.onedev.englishlearning.ui.feed.FeedBaseView;
 import com.onedev.englishlearning.ui.feed.FeedMvpPresenter;
 import com.onedev.englishlearning.ui.feed.FeedPagerAdapter;
@@ -30,12 +39,12 @@ import com.onedev.englishlearning.ui.login.LoginPresenter;
 import com.onedev.englishlearning.ui.main.MainBaseView;
 import com.onedev.englishlearning.ui.main.MainMvpPresenter;
 import com.onedev.englishlearning.ui.main.MainPresenter;
-import com.onedev.englishlearning.ui.main.rating.RatingDialogBaseView;
-import com.onedev.englishlearning.ui.main.rating.RatingDialogMvpPresenter;
-import com.onedev.englishlearning.ui.main.rating.RatingDialogPresenter;
 import com.onedev.englishlearning.ui.splash.SplashBaseView;
 import com.onedev.englishlearning.ui.splash.SplashMvpPresenter;
 import com.onedev.englishlearning.ui.splash.SplashPresenter;
+import com.onedev.englishlearning.ui.topic.TopicBaseView;
+import com.onedev.englishlearning.ui.topic.TopicMvpPresenter;
+import com.onedev.englishlearning.ui.topic.TopicPresenter;
 import com.onedev.englishlearning.utils.rx.AppSchedulerProvider;
 import com.onedev.englishlearning.utils.rx.SchedulerProvider;
 
@@ -108,12 +117,6 @@ public class ActivityModule {
     }
 
     @Provides
-    RatingDialogMvpPresenter<RatingDialogBaseView> provideRateUsPresenter(
-            RatingDialogPresenter<RatingDialogBaseView> presenter) {
-        return presenter;
-    }
-
-    @Provides
     FeedMvpPresenter<FeedBaseView> provideFeedPresenter(
             FeedPresenter<FeedBaseView> presenter) {
         return presenter;
@@ -149,5 +152,29 @@ public class ActivityModule {
     @Provides
     LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
         return new LinearLayoutManager(activity);
+    }
+
+    @Provides
+    TopicMvpPresenter<TopicBaseView> provideTopicMvpPresenter(
+            TopicPresenter<TopicBaseView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    CategoryMvpPresenter<CategoryBaseView> provideCategoryMvpPresenter(
+            CategoryPresenter<CategoryBaseView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    FavoriteMvpPresenter<FavoriteBaseView> provideFavoriteMvpPresenter(
+            FavoritePresenter<FavoriteBaseView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    DetailMvpPresenter<DetailBaseView> provideDetailMvpPresenter(
+            DetailPresenter<DetailBaseView> presenter) {
+        return presenter;
     }
 }

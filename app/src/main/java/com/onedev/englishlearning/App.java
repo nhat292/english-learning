@@ -11,6 +11,7 @@ import com.onedev.englishlearning.dagger.component.ApplicationComponent;
 import com.onedev.englishlearning.dagger.component.DaggerApplicationComponent;
 import com.onedev.englishlearning.dagger.module.ApplicationModule;
 import com.onedev.englishlearning.data.DataManager;
+import com.onedev.englishlearning.data.model.RuntimeObject;
 import com.onedev.englishlearning.utils.AppLogger;
 
 import javax.inject.Inject;
@@ -36,6 +37,8 @@ public class App extends Application implements Application.ActivityLifecycleCal
     private ApplicationComponent mApplicationComponent;
 
     private static App instance;
+
+    private RuntimeObject mRuntimeObject;
 
     @Override
     public void onCreate() {
@@ -63,6 +66,13 @@ public class App extends Application implements Application.ActivityLifecycleCal
 
     public ApplicationComponent getComponent() {
         return mApplicationComponent;
+    }
+
+    public RuntimeObject getmRuntimeObject() {
+        if (mRuntimeObject == null) {
+            mRuntimeObject = new RuntimeObject();
+        }
+        return mRuntimeObject;
     }
 
 

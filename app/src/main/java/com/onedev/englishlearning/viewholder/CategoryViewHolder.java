@@ -2,7 +2,6 @@ package com.onedev.englishlearning.viewholder;
 
 import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.onedev.englishlearning.R;
@@ -12,18 +11,14 @@ import com.onedev.englishlearning.utils.callback.ListItemClickCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainViewHolder extends BaseViewHolder {
+public class CategoryViewHolder extends BaseViewHolder {
 
-    @BindView(R.id.imgItem)
-    ImageView imgItem;
     @BindView(R.id.txtTitle)
     TextView txtTitle;
-    @BindView(R.id.txtDescription)
-    TextView txtDescription;
     @BindView(R.id.cardViewItem)
     CardView cardViewItem;
 
-    public MainViewHolder(View itemView) {
+    public CategoryViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
@@ -33,16 +28,8 @@ public class MainViewHolder extends BaseViewHolder {
 
     }
 
-    public void setImage(int resId) {
-        imgItem.setImageResource(resId);
-    }
-
     public void setTitle(String title) {
-        txtTitle.setText(title);
-    }
-
-    public void setDescription(String description) {
-        txtDescription.setText(description);
+        txtTitle.setText(title.trim());
     }
 
     public void onItemClick(ListItemClickCallback callback) {

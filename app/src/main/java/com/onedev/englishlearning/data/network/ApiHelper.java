@@ -3,10 +3,15 @@ package com.onedev.englishlearning.data.network;
 
 
 import com.onedev.englishlearning.data.network.model.BlogResponse;
+import com.onedev.englishlearning.data.network.model.CategoryResponse;
 import com.onedev.englishlearning.data.network.model.LoginRequest;
 import com.onedev.englishlearning.data.network.model.LoginResponse;
 import com.onedev.englishlearning.data.network.model.LogoutResponse;
 import com.onedev.englishlearning.data.network.model.OpenSourceResponse;
+import com.onedev.englishlearning.data.network.model.SentenceResponse;
+import com.onedev.englishlearning.data.network.model.TopicResponse;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 
@@ -30,4 +35,11 @@ public interface ApiHelper {
     Observable<BlogResponse> getBlogApiCall();
 
     Observable<OpenSourceResponse> getOpenSourceApiCall();
+
+
+    Observable<TopicResponse> getTopics(Map<String, String> params);
+
+    Observable<CategoryResponse> getCategories(Map<String, String> params);
+
+    Observable<SentenceResponse> getSentences(Map<String, String> params);
 }

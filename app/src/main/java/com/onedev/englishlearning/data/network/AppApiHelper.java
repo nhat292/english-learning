@@ -3,12 +3,17 @@ package com.onedev.englishlearning.data.network;
 
 import com.onedev.englishlearning.App;
 import com.onedev.englishlearning.data.network.model.BlogResponse;
+import com.onedev.englishlearning.data.network.model.CategoryResponse;
 import com.onedev.englishlearning.data.network.model.LoginRequest;
 import com.onedev.englishlearning.data.network.model.LoginResponse;
 import com.onedev.englishlearning.data.network.model.LogoutResponse;
 import com.onedev.englishlearning.data.network.model.OpenSourceResponse;
+import com.onedev.englishlearning.data.network.model.SentenceResponse;
+import com.onedev.englishlearning.data.network.model.TopicResponse;
 import com.onedev.englishlearning.utils.NetworkUtils;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -94,6 +99,33 @@ public class AppApiHelper implements ApiHelper {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectObservable(OpenSourceResponse.class);
+    }
+
+    @Override
+    public Observable<TopicResponse> getTopics(Map<String, String> params) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GET_TOPICS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addUrlEncodeFormBodyParameter(params)
+                .build()
+                .getObjectObservable(TopicResponse.class);
+    }
+
+    @Override
+    public Observable<CategoryResponse> getCategories(Map<String, String> params) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GET_CATEGORIES)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addUrlEncodeFormBodyParameter(params)
+                .build()
+                .getObjectObservable(CategoryResponse.class);
+    }
+
+    @Override
+    public Observable<SentenceResponse> getSentences(Map<String, String> params) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GET_SENTENCES)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addUrlEncodeFormBodyParameter(params)
+                .build()
+                .getObjectObservable(SentenceResponse.class);
     }
 }
 

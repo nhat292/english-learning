@@ -29,6 +29,16 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_OPEN_SOURCE = BuildConfig.BASE_URL
             + "/5926c34212000035026871cd";
 
+
+    public static final String ENDPOINT_GET_TOPICS = BuildConfig.BASE_URL
+            + "api/api.php/get-topics";
+
+    public static final String ENDPOINT_GET_CATEGORIES = BuildConfig.BASE_URL
+            + "api/api.php/get-categories-by-topic";
+
+    public static final String ENDPOINT_GET_SENTENCES = BuildConfig.BASE_URL
+            + "api/api.php/get-sentences-by-category";
+
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }

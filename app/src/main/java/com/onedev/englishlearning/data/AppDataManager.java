@@ -13,13 +13,17 @@ import com.onedev.englishlearning.data.network.ApiHeader;
 import com.onedev.englishlearning.data.network.ApiHelper;
 import com.onedev.englishlearning.data.network.NetworkCallback;
 import com.onedev.englishlearning.data.network.model.BlogResponse;
+import com.onedev.englishlearning.data.network.model.CategoryResponse;
 import com.onedev.englishlearning.data.network.model.LoginRequest;
 import com.onedev.englishlearning.data.network.model.LoginResponse;
 import com.onedev.englishlearning.data.network.model.LogoutResponse;
 import com.onedev.englishlearning.data.network.model.OpenSourceResponse;
+import com.onedev.englishlearning.data.network.model.SentenceResponse;
+import com.onedev.englishlearning.data.network.model.TopicResponse;
 import com.onedev.englishlearning.data.prefs.PreferencesHelper;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -231,5 +235,20 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<OpenSourceResponse> getOpenSourceApiCall() {
         return mApiHelper.getOpenSourceApiCall();
+    }
+
+    @Override
+    public Observable<TopicResponse> getTopics(Map<String, String> params) {
+        return mApiHelper.getTopics(params);
+    }
+
+    @Override
+    public Observable<CategoryResponse> getCategories(Map<String, String> params) {
+        return mApiHelper.getCategories(params);
+    }
+
+    @Override
+    public Observable<SentenceResponse> getSentences(Map<String, String> params) {
+        return mApiHelper.getSentences(params);
     }
 }

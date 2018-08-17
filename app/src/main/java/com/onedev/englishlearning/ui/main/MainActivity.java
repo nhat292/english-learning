@@ -20,14 +20,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.onedev.englishlearning.App;
 import com.onedev.englishlearning.BuildConfig;
 import com.onedev.englishlearning.R;
 import com.onedev.englishlearning.adapter.MainAdapter;
 import com.onedev.englishlearning.data.model.MainLibrary;
 import com.onedev.englishlearning.ui.about.AboutFragment;
 import com.onedev.englishlearning.ui.base.BaseActivity;
+import com.onedev.englishlearning.ui.favorite.FavoriteActivity;
 import com.onedev.englishlearning.ui.login.LoginActivity;
-import com.onedev.englishlearning.ui.main.rating.RateUsDialog;
+import com.onedev.englishlearning.ui.topic.TopicActivity;
+import com.onedev.englishlearning.utils.AppConstants;
 
 import java.util.ArrayList;
 
@@ -98,7 +101,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
     @Override
     public void updateAppVersion() {
-        String version = getString(R.string.version) + " " + BuildConfig.VERSION_NAME;
+        String version = "v" + BuildConfig.VERSION_NAME;
         mAppVersionTextView.setText(version);
     }
 
@@ -136,13 +139,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
     @Override
     public void showAboutFragment() {
-        lockDrawer();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.cl_root_view, AboutFragment.newInstance(), AboutFragment.TAG)
-                .commit();
+
     }
 
     @Override
@@ -172,6 +169,9 @@ public class MainActivity extends BaseActivity implements MainBaseView {
         }
         switch (item.getItemId()) {
             case R.id.action_share:
+                return true;
+            case R.id.action_favorites:
+                startActivity(FavoriteActivity.getStartIntent(MainActivity.this));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -204,11 +204,14 @@ public class MainActivity extends BaseActivity implements MainBaseView {
         mPresenter.onNavMenuCreated();
         mPresenter.onViewInitialized();
 
+        // Setup recyclerView
         mMainLibraries = new ArrayList<>();
-        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 1", "Lorem lorem lorem lorem lorem"));
-        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 2", "Lorem lorem lorem lorem lorem"));
-        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 3", "Lorem lorem lorem lorem lorem"));
-        mMainAdapter = new MainAdapter(mMainLibraries);
+        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 1", "Lorem lorem lorem lorem lorem", AppConstants.DATABASE1_NUMBER));
+        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 2", "Lorem lorem lorem lorem lorem", AppConstants.DATABASE2_NUMBER));
+        mMainAdapter = new MainAdapter(mMainLibraries, position -> {
+            App.getInstance().getmRuntimeObject().setDbNumber(mMainLibraries.get(position).getDbNumber());
+            startActivity(TopicActivity.getStartIntent(MainActivity.this, mMainLibraries.get(position).getTitle()));
+        });
         recyclerViewMain.setAdapter(mMainAdapter);
     }
 
@@ -224,7 +227,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
                             mPresenter.onDrawerRateUsClick();
                             return true;
                         case R.id.nav_item_logout:
-                            mPresenter.onDrawerOptionLogoutClick();
+                            mPresenter.onDrawerOptionLogInClick();
                             return true;
                         default:
                             return false;
@@ -240,7 +243,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
     @Override
     public void showRateUsDialog() {
-        RateUsDialog.newInstance().show(getSupportFragmentManager());
+
     }
 
     @Override

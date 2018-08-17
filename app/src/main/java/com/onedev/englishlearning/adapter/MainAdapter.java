@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.onedev.englishlearning.R;
 import com.onedev.englishlearning.data.model.MainLibrary;
+import com.onedev.englishlearning.utils.callback.ListItemClickCallback;
 import com.onedev.englishlearning.viewholder.MainViewHolder;
 
 import java.util.ArrayList;
@@ -15,9 +16,11 @@ import java.util.ArrayList;
 public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
 
     private ArrayList<MainLibrary> mListItems;
+    private ListItemClickCallback mCallback;
 
-    public MainAdapter(ArrayList<MainLibrary> listItems) {
+    public MainAdapter(ArrayList<MainLibrary> listItems, ListItemClickCallback callback) {
         mListItems = listItems;
+        mCallback = callback;
     }
 
     @NonNull
@@ -35,6 +38,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
         holder.setImage(item.getResId());
         holder.setTitle(item.getTitle());
         holder.setDescription(item.getDescription());
+        holder.onItemClick(mCallback);
     }
 
     @Override

@@ -70,6 +70,11 @@ public class MainPresenter<V extends MainBaseView> extends BasePresenter<V>
     }
 
     @Override
+    public void onDrawerOptionLogInClick() {
+        getMvpView().openLoginActivity();
+    }
+
+    @Override
     public void onViewInitialized() {
 //        getCompositeDisposable().add(getDataManager()
 //                .getAllQuestions()
