@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="@dimen/drawer_header_height"
     android:background="@color/blue_black_light"
     android:orientation="vertical"
     android:padding="16dp">
 
     <com.onedev.englishlearning.ui.custom.RoundedImageView
-        android:id="@+id/iv_profile_pic"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="40dp"
+        android:id="@+id/imgAvatar"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:layout_marginTop="@dimen/margin_padding_40dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_account_circle" />
 
@@ -19,7 +19,7 @@
         style="@style/TextStyle.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_padding_10dp"
         android:text="Nguyen Van Nhat"
         android:textColor="@android:color/white" />
 
@@ -28,6 +28,7 @@
         style="@style/TextStyle.Title.Sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
         android:text="nhat292@gmail.com"
         android:textColor="@android:color/white" />
 

@@ -130,24 +130,6 @@ public final class CommonUtils {
         return dateString;
     }
 
-    public static boolean isYesterday(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        int curDay = calendar.get(Calendar.DAY_OF_YEAR);
-        calendar.setTime(date);
-        int day = calendar.get(Calendar.DAY_OF_YEAR);
-        return day == curDay - 1;
-    }
-
-    public static boolean isToday(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        int curDay = calendar.get(Calendar.DAY_OF_YEAR);
-        calendar.setTime(date);
-        int day = calendar.get(Calendar.DAY_OF_YEAR);
-        return day == curDay;
-    }
-
     public static String formatTimeStamp(long timeStamp) {
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");

@@ -31,6 +31,9 @@
 
     <!--Favorite Activity-->
 
+    <!--Detail Activity-->
+    <string name="entire_sound">Listen entire sound</string>
+
     <!--Login-->
     <string name="login_dummy">Login Dummy</string>
     <string name="login">Login</string>

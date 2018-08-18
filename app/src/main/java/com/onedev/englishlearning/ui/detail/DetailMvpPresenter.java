@@ -6,5 +6,5 @@ import com.onedev.englishlearning.ui.base.MvpPresenter;
 @PerActivity
 public interface DetailMvpPresenter<V extends DetailBaseView> extends MvpPresenter<V> {
 
-    void getSentences(int categoryId);
+    void getSentences(int categoryId, boolean isShowLoading);
 }

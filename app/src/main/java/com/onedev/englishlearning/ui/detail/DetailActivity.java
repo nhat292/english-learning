@@ -4,12 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.onedev.englishlearning.R;
+import com.onedev.englishlearning.adapter.DetailAdapter;
+import com.onedev.englishlearning.data.model.Sentence;
+import com.onedev.englishlearning.data.model.SentenceData;
 import com.onedev.englishlearning.data.network.model.SentenceResponse;
 import com.onedev.englishlearning.ui.base.BaseActivity;
-import com.onedev.englishlearning.utils.AppLogger;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -17,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DetailActivity extends BaseActivity implements DetailBaseView {
+public class DetailActivity extends BaseActivity implements DetailBaseView, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String EXTRA_TITLE = "EXTRA_TITLE";
     private static final String EXTRA_CATEGORY_ID = "EXTRA_CATEGORY_ID";
@@ -35,7 +41,15 @@ public class DetailActivity extends BaseActivity implements DetailBaseView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.swipeToRefreshLayout)
+    SwipeRefreshLayout swipeToRefreshLayout;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
     private int mCategoryId;
+    private ArrayList<Sentence> mListItems = new ArrayList<>();
+    private DetailAdapter mDetailAdapter;
+    private SentenceData mSentenceData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,11 +80,32 @@ public class DetailActivity extends BaseActivity implements DetailBaseView {
             mCategoryId = intent.getIntExtra(EXTRA_CATEGORY_ID, 0);
         }
 
-        mPresenter.getSentences(mCategoryId);
+        swipeToRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimaryDark);
+        swipeToRefreshLayout.setOnRefreshListener(this);
+
+        mDetailAdapter = new DetailAdapter(mListItems, position -> {
+
+        });
+        recyclerView.setAdapter(mDetailAdapter);
+
+        mPresenter.getSentences(mCategoryId, true);
     }
 
     @Override
     public void onGetSentencesSuccess(SentenceResponse response) {
-        AppLogger.d("OnGetSentencesStatus: " + response.getMessage());
+        mListItems.clear();
+        mSentenceData = response.getData();
+        mListItems.addAll(response.getData().getSentences());
+        mDetailAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getSentences(mCategoryId, false);
+    }
+
+    @Override
+    public void hideRefreshLoading() {
+        swipeToRefreshLayout.setRefreshing(false);
     }
 }

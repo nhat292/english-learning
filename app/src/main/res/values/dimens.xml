@@ -20,4 +20,16 @@
     <dimen name="margin_padding_20dp">20dp</dimen>
     <dimen name="margin_padding_10dp">10dp</dimen>
     <dimen name="margin_padding_5dp">5dp</dimen>
+
+    <!--Detail Activity-->
+    <dimen name="item_card_corner_radius">7dp</dimen>
+    <dimen name="item_card_elevation">5dp</dimen>
+
+    <!--Sizes-->
+    <dimen name="avatar_size">64dp</dimen>
+    <dimen name="drawer_header_height">200dp</dimen>
+    <dimen name="play_bottom_height">100dp</dimen>
+    <dimen name="progress_bar_height">6dp</dimen>
+    <dimen name="play_pause_button_size">50dp</dimen>
+    <dimen name="play_pause_button_size_item">30dp</dimen>
 </resources>

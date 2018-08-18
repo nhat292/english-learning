@@ -22,8 +22,10 @@ public class DetailPresenter<V extends DetailBaseView> extends BasePresenter<V> 
     }
 
     @Override
-    public void getSentences(int categoryId) {
-        getMvpView().showLoading();
+    public void getSentences(int categoryId, boolean isShowLoading) {
+        if(isShowLoading) {
+            getMvpView().showLoading();
+        }
         Map<String, String> params = new HashMap<>();
         params.put("category_id", String.valueOf(categoryId));
         params.put("db_number", String.valueOf(App.getInstance().getmRuntimeObject().getDbNumber()));
@@ -36,7 +38,10 @@ public class DetailPresenter<V extends DetailBaseView> extends BasePresenter<V> 
                         return;
                     }
 
-                    getMvpView().hideLoading();
+                    if(isShowLoading) {
+                        getMvpView().hideLoading();
+                    }
+                    getMvpView().hideRefreshLoading();
 
                     getMvpView().onGetSentencesSuccess(response);
                 }, throwable -> {
@@ -44,7 +49,10 @@ public class DetailPresenter<V extends DetailBaseView> extends BasePresenter<V> 
                         return;
                     }
 
-                    getMvpView().hideLoading();
+                    if(isShowLoading) {
+                        getMvpView().hideLoading();
+                    }
+                    getMvpView().hideRefreshLoading();
 
                     // handle the login error here
                     if (throwable instanceof ANError) {

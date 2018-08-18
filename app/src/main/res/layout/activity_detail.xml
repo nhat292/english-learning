@@ -46,7 +46,8 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeToRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -55,5 +56,49 @@
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/item_topic" />
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewItem"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/play_bottom_height"
+        android:layout_marginTop="@dimen/margin_padding_5dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:padding="@dimen/margin_padding_10dp">
+
+            <TextView
+                style="@style/TextStyle.Title.Sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/entire_sound" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/progress_bar_height"
+                android:max="100"
+                android:progress="50"
+                android:progressDrawable="@drawable/progress_bar_drawable" />
+
+            <ImageButton
+                android:layout_width="@dimen/play_pause_button_size"
+                android:layout_height="@dimen/play_pause_button_size"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/transparent"
+                android:foreground="?attr/actionBarItemBackground"
+                android:padding="@dimen/margin_padding_5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_play" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

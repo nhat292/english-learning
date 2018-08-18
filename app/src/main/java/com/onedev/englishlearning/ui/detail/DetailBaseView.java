@@ -7,4 +7,5 @@ public interface DetailBaseView extends BaseView {
 
     void onGetSentencesSuccess(SentenceResponse response);
 
+    void hideRefreshLoading();
 }
