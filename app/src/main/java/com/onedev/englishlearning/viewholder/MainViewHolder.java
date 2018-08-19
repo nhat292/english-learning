@@ -48,7 +48,7 @@ public class MainViewHolder extends BaseViewHolder {
     public void onItemClick(ListItemClickCallback callback) {
         cardViewItem.setOnClickListener(view -> {
             if(callback != null) {
-                callback.onClick(getCurrentPosition());
+                callback.onClick(getCurrentPosition(), 0);
             }
         });
     }

@@ -9,6 +9,7 @@ import com.onedev.englishlearning.data.network.model.LoginResponse;
 import com.onedev.englishlearning.data.network.model.LogoutResponse;
 import com.onedev.englishlearning.data.network.model.OpenSourceResponse;
 import com.onedev.englishlearning.data.network.model.SentenceResponse;
+import com.onedev.englishlearning.data.network.model.SimpleResponse;
 import com.onedev.englishlearning.data.network.model.TopicResponse;
 
 import java.util.Map;
@@ -36,10 +37,11 @@ public interface ApiHelper {
 
     Observable<OpenSourceResponse> getOpenSourceApiCall();
 
-
     Observable<TopicResponse> getTopics(Map<String, String> params);
 
     Observable<CategoryResponse> getCategories(Map<String, String> params);
 
     Observable<SentenceResponse> getSentences(Map<String, String> params);
+
+    Observable<SimpleResponse> addOrRemoveFavorite(Map<String, String> params);
 }

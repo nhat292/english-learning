@@ -36,6 +36,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicViewHolder> {
         Topic item = mListItems.get(position);
         holder.setTitle(String.valueOf(position + 1) + ". " + item.getName());
         holder.onItemClick(mCallback);
+        holder.setOnTranslateClick(item.getName());
     }
 
     @Override

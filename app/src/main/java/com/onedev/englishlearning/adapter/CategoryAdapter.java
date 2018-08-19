@@ -36,6 +36,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         Category item = mListItems.get(position);
         holder.setTitle(String.valueOf(position + 1) + ". " + item.getName());
         holder.onItemClick(mCallback);
+        holder.setOnTranslateClick(item.getName());
+        holder.updateFavoriteButton(item.isAddedFavories());
+        holder.onFavoriteClick(mCallback);
     }
 
     @Override

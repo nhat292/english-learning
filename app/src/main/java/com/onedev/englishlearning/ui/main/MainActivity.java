@@ -25,10 +25,11 @@ import com.onedev.englishlearning.BuildConfig;
 import com.onedev.englishlearning.R;
 import com.onedev.englishlearning.adapter.MainAdapter;
 import com.onedev.englishlearning.data.model.MainLibrary;
+import com.onedev.englishlearning.data.model.User;
 import com.onedev.englishlearning.ui.about.AboutFragment;
 import com.onedev.englishlearning.ui.base.BaseActivity;
+import com.onedev.englishlearning.ui.custom.RoundedImageView;
 import com.onedev.englishlearning.ui.favorite.FavoriteActivity;
-import com.onedev.englishlearning.ui.login.LoginActivity;
 import com.onedev.englishlearning.ui.topic.TopicActivity;
 import com.onedev.englishlearning.utils.AppConstants;
 
@@ -55,7 +56,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
     @BindView(R.id.drawer_view)
     DrawerLayout mDrawer;
 
-    @BindView(R.id.navigation_view)
+    @BindView(R.id.navigationView)
     NavigationView mNavigationView;
 
     @BindView(R.id.tv_app_version)
@@ -63,6 +64,10 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
     @BindView(R.id.recyclerViewMain)
     RecyclerView recyclerViewMain;
+
+    RoundedImageView imgAvatar;
+    TextView txtName;
+    TextView txtEmail;
 
     private ArrayList<MainLibrary> mMainLibraries;
     private MainAdapter mMainAdapter;
@@ -100,12 +105,6 @@ public class MainActivity extends BaseActivity implements MainBaseView {
     }
 
     @Override
-    public void updateAppVersion() {
-        String version = "v" + BuildConfig.VERSION_NAME;
-        mAppVersionTextView.setText(version);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         if (mDrawer != null)
@@ -138,20 +137,27 @@ public class MainActivity extends BaseActivity implements MainBaseView {
     }
 
     @Override
-    public void showAboutFragment() {
-
-    }
-
-    @Override
     public void lockDrawer() {
-        if (mDrawer != null)
+        if (mDrawer != null) {
             mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
     }
 
     @Override
     public void unlockDrawer() {
-        if (mDrawer != null)
+        if (mDrawer != null) {
             mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
+    }
+
+    @Override
+    public void onOpenFavoriteActivity() {
+        startActivity(FavoriteActivity.getStartIntent(MainActivity.this));
+    }
+
+    @Override
+    public void onLoginRequires() {
+        showMessage("Login requires");
     }
 
     @Override
@@ -171,7 +177,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
             case R.id.action_share:
                 return true;
             case R.id.action_favorites:
-                startActivity(FavoriteActivity.getStartIntent(MainActivity.this));
+                mPresenter.onFavoritesClick();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -208,11 +214,22 @@ public class MainActivity extends BaseActivity implements MainBaseView {
         mMainLibraries = new ArrayList<>();
         mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 1", "Lorem lorem lorem lorem lorem", AppConstants.DATABASE1_NUMBER));
         mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 2", "Lorem lorem lorem lorem lorem", AppConstants.DATABASE2_NUMBER));
-        mMainAdapter = new MainAdapter(mMainLibraries, position -> {
+        mMainAdapter = new MainAdapter(mMainLibraries, (position, type) -> {
             App.getInstance().getmRuntimeObject().setDbNumber(mMainLibraries.get(position).getDbNumber());
             startActivity(TopicActivity.getStartIntent(MainActivity.this, mMainLibraries.get(position).getTitle()));
         });
         recyclerViewMain.setAdapter(mMainAdapter);
+
+        String version = "v" + BuildConfig.VERSION_NAME;
+        mAppVersionTextView.setText(version);
+
+        View headerView = mNavigationView.getHeaderView(0);
+        imgAvatar = headerView.findViewById(R.id.imgAvatar);
+        txtName = headerView.findViewById(R.id.txtName);
+        txtEmail = headerView.findViewById(R.id.txtEmail);
+
+        mPresenter.getUserInfo();
+
     }
 
     void setupNavMenu() {
@@ -226,7 +243,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
                         case R.id.nav_item_rate_us:
                             mPresenter.onDrawerRateUsClick();
                             return true;
-                        case R.id.nav_item_logout:
+                        case R.id.nav_item_login:
                             mPresenter.onDrawerOptionLogInClick();
                             return true;
                         default:
@@ -236,20 +253,24 @@ public class MainActivity extends BaseActivity implements MainBaseView {
     }
 
     @Override
-    public void openLoginActivity() {
-        startActivity(LoginActivity.getStartIntent(this));
-        finish();
-    }
-
-    @Override
-    public void showRateUsDialog() {
-
-    }
-
-    @Override
     public void closeNavigationDrawer() {
         if (mDrawer != null) {
             mDrawer.closeDrawer(Gravity.START);
+        }
+    }
+
+    @Override
+    public void onGetUserInfoSuccess(User user) {
+        Menu menuNav = mNavigationView.getMenu();
+        MenuItem loginItem = menuNav.findItem(R.id.nav_item_login);
+        if(user != null) {
+            txtName.setText(user.getName());
+            txtEmail.setText(user.getEmail());
+            loginItem.setVisible(false);
+        } else {
+            txtName.setText("Guest");
+            txtEmail.setText("");
+            loginItem.setVisible(true);
         }
     }
 }

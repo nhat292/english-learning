@@ -38,15 +38,20 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailViewHolder> {
         Sentence item = mListItems.get(position);
         if (item.getType() == Sentence.TYPE_NO_SOUND
                 && App.getInstance().getmRuntimeObject().getDbNumber() == AppConstants.DATABASE2_NUMBER) {
-            holder.setContent(item.getPhrase());
             holder.setButtonVisibility(View.GONE);
             holder.setCardBackgroundVisibility(false);
         } else {
-            holder.setContent(String.valueOf(position + 1) + ". " + item.getPhrase());
             holder.setButtonVisibility(View.VISIBLE);
             holder.setCardBackgroundVisibility(true);
         }
+        if (item.isPlaying()) {
+            holder.setButtonResource(R.drawable.ic_pause);
+        } else {
+            holder.setButtonResource(R.drawable.ic_play);
+        }
+        holder.setContent(item.getPhrase());
         holder.onItemClick(mCallback);
+        holder.setOnTranslateClick(item.getPhrase());
     }
 
     @Override

@@ -12,10 +12,10 @@
         android:layout_height="@dimen/avatar_size"
         android:layout_marginTop="@dimen/margin_padding_40dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_account_circle" />
+        android:src="@drawable/ic_account" />
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/txtName"
         style="@style/TextStyle.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/tv_email"
+        android:id="@+id/txtEmail"
         style="@style/TextStyle.Title.Sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

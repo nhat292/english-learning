@@ -76,7 +76,7 @@ public class TopicActivity extends BaseActivity implements TopicBaseView, SwipeR
         swipeToRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimaryDark);
         swipeToRefreshLayout.setOnRefreshListener(this);
 
-        mTopicAdapter = new TopicAdapter(mListItems, position ->
+        mTopicAdapter = new TopicAdapter(mListItems, (position, type) ->
                 startActivity(CategoryActivity.getStartIntent(
                         TopicActivity.this,
                         mListItems.get(position).getName(),

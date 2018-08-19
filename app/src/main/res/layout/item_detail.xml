@@ -31,7 +31,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textIsSelectable="true"
                 android:text="1. Common Expressions" />
+
+            <ImageButton
+                android:id="@+id/imgBtnTranslate"
+                android:layout_width="@dimen/play_pause_button_size_item"
+                android:layout_height="@dimen/play_pause_button_size_item"
+                android:background="@android:color/transparent"
+                android:foreground="?attr/actionBarItemBackground"
+                android:padding="@dimen/margin_padding_5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_translate" />
 
             <ImageButton
                 android:id="@+id/imgBtnPlayPause"

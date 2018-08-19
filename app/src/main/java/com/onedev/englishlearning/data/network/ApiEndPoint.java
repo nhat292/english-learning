@@ -39,6 +39,9 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_GET_SENTENCES = BuildConfig.BASE_URL
             + "api/api.php/get-sentences-by-category";
 
+    public static final String ENDPOINT_ADD_REMOVE_FAVORITES = BuildConfig.BASE_URL
+            + "api/api.php/add-or-remove-favorites";
+
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }

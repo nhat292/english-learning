@@ -19,8 +19,8 @@ public final class AppUtils {
         // This class is not publicly instantiable
     }
 
-    public static void openPlayStoreForApp(Context context) {
-        final String appPackageName = context.getPackageName();
+    public static void openPlayStoreForApp(Context context, String packageName) {
+        final String appPackageName = packageName; //context.getPackageName();
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(context
@@ -33,5 +33,6 @@ public final class AppUtils {
                             .getString(R.string.app_google_play_store_link) + appPackageName)));
         }
     }
+
 
 }

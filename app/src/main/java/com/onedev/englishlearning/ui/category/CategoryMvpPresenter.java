@@ -8,4 +8,5 @@ public interface CategoryMvpPresenter<V extends CategoryBaseView> extends MvpPre
 
     void getCategories(int topicId, boolean isShowLoading);
 
+    void addOrRemoveFavorite(int addOrRemove, int categoryId);
 }

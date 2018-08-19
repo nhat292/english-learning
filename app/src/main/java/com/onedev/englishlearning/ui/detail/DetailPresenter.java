@@ -41,7 +41,6 @@ public class DetailPresenter<V extends DetailBaseView> extends BasePresenter<V> 
                     if(isShowLoading) {
                         getMvpView().hideLoading();
                     }
-                    getMvpView().hideRefreshLoading();
 
                     getMvpView().onGetSentencesSuccess(response);
                 }, throwable -> {
@@ -52,7 +51,6 @@ public class DetailPresenter<V extends DetailBaseView> extends BasePresenter<V> 
                     if(isShowLoading) {
                         getMvpView().hideLoading();
                     }
-                    getMvpView().hideRefreshLoading();
 
                     // handle the login error here
                     if (throwable instanceof ANError) {

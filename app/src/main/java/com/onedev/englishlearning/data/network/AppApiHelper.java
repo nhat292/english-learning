@@ -9,6 +9,7 @@ import com.onedev.englishlearning.data.network.model.LoginResponse;
 import com.onedev.englishlearning.data.network.model.LogoutResponse;
 import com.onedev.englishlearning.data.network.model.OpenSourceResponse;
 import com.onedev.englishlearning.data.network.model.SentenceResponse;
+import com.onedev.englishlearning.data.network.model.SimpleResponse;
 import com.onedev.englishlearning.data.network.model.TopicResponse;
 import com.onedev.englishlearning.utils.NetworkUtils;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -126,6 +127,15 @@ public class AppApiHelper implements ApiHelper {
                 .addUrlEncodeFormBodyParameter(params)
                 .build()
                 .getObjectObservable(SentenceResponse.class);
+    }
+
+    @Override
+    public Observable<SimpleResponse> addOrRemoveFavorite(Map<String, String> params) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_ADD_REMOVE_FAVORITES)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addUrlEncodeFormBodyParameter(params)
+                .build()
+                .getObjectObservable(SimpleResponse.class);
     }
 }
 

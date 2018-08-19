@@ -131,7 +131,7 @@ public class BasePresenter<V extends BaseView> implements MvpPresenter<V> {
 
     @Override
     public void setUserAsLoggedOut() {
-        getDataManager().setAccessToken(null);
+
     }
 
     public static class MvpViewNotAttachedException extends RuntimeException {

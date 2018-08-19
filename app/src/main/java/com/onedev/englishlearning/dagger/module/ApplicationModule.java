@@ -101,7 +101,7 @@ public class ApplicationModule {
                                                            PreferencesHelper preferencesHelper) {
         return new ApiHeader.ProtectedApiHeader(
                 apiKey,
-                preferencesHelper.getCurrentUserId(),
+                (long)0,
                 Credentials.basic(BuildConfig.USERNAME, BuildConfig.PASSWORD));
     }
 

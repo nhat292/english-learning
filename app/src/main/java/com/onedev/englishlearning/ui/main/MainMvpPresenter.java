@@ -14,8 +14,6 @@ public interface MainMvpPresenter<V extends MainBaseView> extends MvpPresenter<V
 
     void onDrawerOptionAboutClick();
 
-    void onDrawerOptionLogoutClick();
-
     void onDrawerOptionLogInClick();
 
     void onDrawerRateUsClick();
@@ -23,4 +21,8 @@ public interface MainMvpPresenter<V extends MainBaseView> extends MvpPresenter<V
     void onViewInitialized();
 
     void onNavMenuCreated();
+
+    void onFavoritesClick();
+
+    void getUserInfo();
 }

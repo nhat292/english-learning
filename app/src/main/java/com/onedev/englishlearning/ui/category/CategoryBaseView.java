@@ -9,4 +9,8 @@ public interface CategoryBaseView extends BaseView {
     void hideRefreshLoading();
 
     void onGetCategoriesSuccess(CategoryResponse response);
+
+    void onAddOrRemoveSuccess();
+
+    void onLoginRequires();
 }

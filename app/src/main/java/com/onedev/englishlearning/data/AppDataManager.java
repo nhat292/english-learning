@@ -19,6 +19,7 @@ import com.onedev.englishlearning.data.network.model.LoginResponse;
 import com.onedev.englishlearning.data.network.model.LogoutResponse;
 import com.onedev.englishlearning.data.network.model.OpenSourceResponse;
 import com.onedev.englishlearning.data.network.model.SentenceResponse;
+import com.onedev.englishlearning.data.network.model.SimpleResponse;
 import com.onedev.englishlearning.data.network.model.TopicResponse;
 import com.onedev.englishlearning.data.prefs.PreferencesHelper;
 
@@ -61,16 +62,6 @@ public class AppDataManager implements DataManager {
         return mApiHelper.getApiHeader();
     }
 
-    @Override
-    public String getAccessToken() {
-        return mPreferencesHelper.getAccessToken();
-    }
-
-    @Override
-    public void setAccessToken(String accessToken) {
-        mPreferencesHelper.setAccessToken(accessToken);
-        mApiHelper.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
-    }
 
     @Override
     public Observable<Long> insertUser(User user) {
@@ -103,92 +94,6 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<LogoutResponse> doLogoutApiCall(NetworkCallback callback) {
         return mApiHelper.doLogoutApiCall(callback);
-    }
-
-    @Override
-    public int getCurrentUserLoggedInMode() {
-        return mPreferencesHelper.getCurrentUserLoggedInMode();
-    }
-
-    @Override
-    public void setCurrentUserLoggedInMode(LoggedInMode mode) {
-        mPreferencesHelper.setCurrentUserLoggedInMode(mode);
-    }
-
-    @Override
-    public Long getCurrentUserId() {
-        return mPreferencesHelper.getCurrentUserId();
-    }
-
-    @Override
-    public void setCurrentUserId(Long userId) {
-        mPreferencesHelper.setCurrentUserId(userId);
-    }
-
-    @Override
-    public String getCurrentUserName() {
-        return mPreferencesHelper.getCurrentUserName();
-    }
-
-    @Override
-    public void setCurrentUserName(String userName) {
-        mPreferencesHelper.setCurrentUserName(userName);
-    }
-
-    @Override
-    public String getCurrentUserEmail() {
-        return mPreferencesHelper.getCurrentUserEmail();
-    }
-
-    @Override
-    public void setCurrentUserEmail(String email) {
-        mPreferencesHelper.setCurrentUserEmail(email);
-    }
-
-    @Override
-    public String getCurrentUserProfilePicUrl() {
-        return mPreferencesHelper.getCurrentUserProfilePicUrl();
-    }
-
-    @Override
-    public void setCurrentUserProfilePicUrl(String profilePicUrl) {
-        mPreferencesHelper.setCurrentUserProfilePicUrl(profilePicUrl);
-    }
-
-    @Override
-    public void updateApiHeader(Long userId, String accessToken) {
-        mApiHelper.getApiHeader().getProtectedApiHeader().setUserId(userId);
-        mApiHelper.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
-    }
-
-    @Override
-    public void updateUserInfo(
-            String accessToken,
-            Long userId,
-            LoggedInMode loggedInMode,
-            String userName,
-            String email,
-            String profilePicPath) {
-
-        setAccessToken(accessToken);
-        setCurrentUserId(userId);
-        setCurrentUserLoggedInMode(loggedInMode);
-        setCurrentUserName(userName);
-        setCurrentUserEmail(email);
-        setCurrentUserProfilePicUrl(profilePicPath);
-
-        updateApiHeader(userId, accessToken);
-    }
-
-    @Override
-    public void setUserAsLoggedOut() {
-        updateUserInfo(
-                null,
-                null,
-                DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT,
-                null,
-                null,
-                null);
     }
 
     @Override
@@ -250,5 +155,20 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<SentenceResponse> getSentences(Map<String, String> params) {
         return mApiHelper.getSentences(params);
+    }
+
+    @Override
+    public Observable<SimpleResponse> addOrRemoveFavorite(Map<String, String> params) {
+        return mApiHelper.addOrRemoveFavorite(params);
+    }
+
+    @Override
+    public void setUser(com.onedev.englishlearning.data.model.User user) {
+        mPreferencesHelper.setUser(user);
+    }
+
+    @Override
+    public com.onedev.englishlearning.data.model.User getUser() {
+        return mPreferencesHelper.getUser();
     }
 }

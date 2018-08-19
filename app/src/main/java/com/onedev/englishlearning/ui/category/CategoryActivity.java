@@ -50,6 +50,7 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
     private int mTopicId;
     private ArrayList<Category> mListItems = new ArrayList<>();
     private CategoryAdapter mCategoryAdapter;
+    private int mSelectedItemPosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,16 +85,22 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
         swipeToRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimaryDark);
         swipeToRefreshLayout.setOnRefreshListener(this);
 
-        mCategoryAdapter = new CategoryAdapter(mListItems, position ->
+        mCategoryAdapter = new CategoryAdapter(mListItems, (position, type) -> {
+            if(type == 0) {
                 startActivity(DetailActivity.getStartIntent(
                         CategoryActivity.this,
                         mListItems.get(position).getName(),
-                        mListItems.get(position).getId()))
+                        mListItems.get(position).getId()));
+            } else {
+                mSelectedItemPosition = mListItems.get(position).getId();
+                // 1-add, 0-remove
+                int addOrRemove = mListItems.get(position).isAddedFavories() ? 0 : 1;
+                mPresenter.addOrRemoveFavorite(addOrRemove, mListItems.get(position).getId());
+            }
+        }
         );
         recyclerView.setAdapter(mCategoryAdapter);
-
         mPresenter.getCategories(mTopicId, true);
-
     }
 
     @Override
@@ -111,5 +118,20 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
         mListItems.clear();
         mListItems.addAll(response.getCategories());
         mCategoryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAddOrRemoveSuccess() {
+        if(mListItems.get(mSelectedItemPosition).isAddedFavories()) {
+            mListItems.get(mSelectedItemPosition).setAddedFavorites(false);
+        } else {
+            mListItems.get(mSelectedItemPosition).setAddedFavorites(true);
+        }
+        mCategoryAdapter.notifyItemChanged(mSelectedItemPosition);
+    }
+
+    @Override
+    public void onLoginRequires() {
+        showMessage("Login requires");
     }
 }

@@ -28,7 +28,6 @@
     <!--Sizes-->
     <dimen name="avatar_size">64dp</dimen>
     <dimen name="drawer_header_height">200dp</dimen>
-    <dimen name="play_bottom_height">100dp</dimen>
     <dimen name="progress_bar_height">6dp</dimen>
     <dimen name="play_pause_button_size">50dp</dimen>
     <dimen name="play_pause_button_size_item">30dp</dimen>

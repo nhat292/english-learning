@@ -17,6 +17,10 @@ public class Category {
     @Expose
     private int topicId;
 
+    @SerializedName("is_added_favorites")
+    @Expose
+    private boolean addedFavorites;
+
     public int getId() {
         return id;
     }
@@ -39,5 +43,13 @@ public class Category {
 
     public void setTopicId(int topicId) {
         this.topicId = topicId;
+    }
+
+    public boolean isAddedFavories() {
+        return addedFavorites;
+    }
+
+    public void setAddedFavorites(boolean addedFavorites) {
+        this.addedFavorites = addedFavorites;
     }
 }

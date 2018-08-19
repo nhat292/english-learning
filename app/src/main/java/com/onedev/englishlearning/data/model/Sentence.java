@@ -28,6 +28,8 @@ public class Sentence {
     @Expose
     private int type;
 
+    private boolean playing;
+
     public int getId() {
         return id;
     }
@@ -66,5 +68,13 @@ public class Sentence {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 }
