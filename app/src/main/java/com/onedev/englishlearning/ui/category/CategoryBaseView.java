@@ -1,5 +1,6 @@
 package com.onedev.englishlearning.ui.category;
 
+import com.onedev.englishlearning.data.model.User;
 import com.onedev.englishlearning.data.network.model.CategoryResponse;
 import com.onedev.englishlearning.ui.base.BaseView;
 

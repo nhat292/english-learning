@@ -1,6 +1,7 @@
 
 package com.onedev.englishlearning.ui.main;
 
+import com.facebook.CallbackManager;
 import com.onedev.englishlearning.dagger.PerActivity;
 import com.onedev.englishlearning.ui.base.MvpPresenter;
 
@@ -25,4 +26,10 @@ public interface MainMvpPresenter<V extends MainBaseView> extends MvpPresenter<V
     void onFavoritesClick();
 
     void getUserInfo();
+
+    void initFacebookLogin(CallbackManager callbackManager);
+
+    void loginLogoutClick(MainActivity activity);
+
+    void logout();
 }

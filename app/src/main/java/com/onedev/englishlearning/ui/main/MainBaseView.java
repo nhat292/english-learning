@@ -22,4 +22,10 @@ public interface MainBaseView extends BaseView {
     void onLoginRequires();
 
     void onGetUserInfoSuccess(User user);
+
+    void onLoginSuccess(User user);
+
+    void onLogoutClick();
+
+    void onLogOutSuccess();
 }

@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 
 import com.onedev.englishlearning.R;
 import com.onedev.englishlearning.dagger.component.ActivityComponent;
+import com.onedev.englishlearning.ui.dialog.DialogCallback;
 
 import butterknife.Unbinder;
 
@@ -32,6 +33,7 @@ public abstract class BaseDialog extends DialogFragment implements DialogBaseVie
 
     private BaseActivity mActivity;
     private Unbinder mUnBinder;
+    protected DialogCallback mCallback;
 
     @Override
     public void onAttach(Context context) {
@@ -190,4 +192,19 @@ public abstract class BaseDialog extends DialogFragment implements DialogBaseVie
         }
         super.onDestroy();
     }
+
+    @Override
+    public void showSimpleDialog(String title, String message) {
+
+    }
+
+    @Override
+    public void showConfirmDialog(String title, String message, DialogCallback callback) {
+
+    }
+
+    public void setCallback(DialogCallback callback) {
+        mCallback = callback;
+    }
+
 }

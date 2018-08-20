@@ -92,7 +92,7 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
                         mListItems.get(position).getName(),
                         mListItems.get(position).getId()));
             } else {
-                mSelectedItemPosition = mListItems.get(position).getId();
+                mSelectedItemPosition = position;
                 // 1-add, 0-remove
                 int addOrRemove = mListItems.get(position).isAddedFavories() ? 0 : 1;
                 mPresenter.addOrRemoveFavorite(addOrRemove, mListItems.get(position).getId());

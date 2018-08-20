@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor.Level;
+import com.facebook.FacebookSdk;
 import com.onedev.englishlearning.dagger.component.ApplicationComponent;
 import com.onedev.englishlearning.dagger.component.DaggerApplicationComponent;
 import com.onedev.englishlearning.dagger.module.ApplicationModule;

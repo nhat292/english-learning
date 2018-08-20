@@ -11,6 +11,8 @@ public final class AppConstants {
         // This utility class is not publicly instantiable
     }
 
+    public static final String EMPTY_STRING = "";
+
     public static final int SPLASH_TIMEOUT = 1500;
 
     public static final int API_STATUS_CODE_LOCAL_ERROR = 0;

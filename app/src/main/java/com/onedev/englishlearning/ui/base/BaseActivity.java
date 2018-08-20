@@ -23,6 +23,8 @@ import com.onedev.englishlearning.R;
 import com.onedev.englishlearning.dagger.component.ActivityComponent;
 import com.onedev.englishlearning.dagger.component.DaggerActivityComponent;
 import com.onedev.englishlearning.dagger.module.ActivityModule;
+import com.onedev.englishlearning.ui.dialog.AppDialog;
+import com.onedev.englishlearning.ui.dialog.DialogCallback;
 import com.onedev.englishlearning.ui.login.LoginActivity;
 import com.onedev.englishlearning.utils.CommonUtils;
 import com.onedev.englishlearning.utils.NetworkUtils;
@@ -205,6 +207,33 @@ public abstract class BaseActivity extends AppCompatActivity
         if (!statusOk) {
             onError(R.string.connection_error);
         }
+    }
+
+
+    @Override
+    public void showSimpleDialog(String title, String message) {
+        AppDialog dialog = AppDialog.newInstance();
+        dialog.show(getSupportFragmentManager(), title, message, false);
+        dialog.setCallback(new DialogCallback<AppDialog>() {
+            @Override
+            public void onNegative(AppDialog dialog) {
+                dialog.dismissDialog(AppDialog.TAG);
+            }
+
+            @Override
+            public void onPositive(AppDialog dialog) {
+                dialog.dismissDialog(AppDialog.TAG);
+            }
+        });
+
+    }
+
+    @Override
+    public void showConfirmDialog(String title, String message, DialogCallback callback) {
+        AppDialog dialog = AppDialog.newInstance();
+        dialog.show(getSupportFragmentManager(), title, message, true);
+        dialog.setCallback(callback);
+
     }
 
     public void setUnBinder(Unbinder unBinder) {

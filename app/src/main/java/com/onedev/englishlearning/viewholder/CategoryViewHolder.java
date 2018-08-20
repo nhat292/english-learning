@@ -65,4 +65,8 @@ public class CategoryViewHolder extends BaseViewHolder {
             }
         });
     }
+
+    public void setCardBackgroundColor(int resColor) {
+        cardViewItem.setBackgroundColor(itemView.getResources().getColor(resColor));
+    }
 }

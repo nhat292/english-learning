@@ -8,6 +8,8 @@ package com.onedev.englishlearning.ui.base;
 
 import android.support.annotation.StringRes;
 
+import com.onedev.englishlearning.ui.dialog.DialogCallback;
+
 /**
  * Base interface that any class that wants to act as a View in the MVP (Model View Presenter)
  * pattern must implement. Generally this interface will be extended by a more specific interface
@@ -34,5 +36,9 @@ public interface BaseView {
     void hideKeyboard();
 
     void handleNetworkIfNeeded(boolean statusOk);
+
+    void showSimpleDialog(String title, String message);
+
+    void showConfirmDialog(String title, String message, DialogCallback callback);
 
 }

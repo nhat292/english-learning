@@ -31,4 +31,8 @@
     <dimen name="progress_bar_height">6dp</dimen>
     <dimen name="play_pause_button_size">50dp</dimen>
     <dimen name="play_pause_button_size_item">30dp</dimen>
+
+    <!--Dialog-->
+    <dimen name="dialog_min_width">300dp</dimen>
+
 </resources>

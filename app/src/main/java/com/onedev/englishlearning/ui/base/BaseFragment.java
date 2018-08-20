@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.onedev.englishlearning.R;
 import com.onedev.englishlearning.dagger.component.ActivityComponent;
+import com.onedev.englishlearning.ui.dialog.DialogCallback;
 import com.onedev.englishlearning.utils.CommonUtils;
 
 import butterknife.Unbinder;
@@ -129,6 +130,16 @@ public abstract class BaseFragment extends Fragment implements BaseView {
             return mActivity.getActivityComponent();
         }
         return null;
+    }
+
+    @Override
+    public void showConfirmDialog(String title, String message, DialogCallback callback) {
+
+    }
+
+    @Override
+    public void showSimpleDialog(String title, String message) {
+
     }
 
     public BaseActivity getBaseActivity() {

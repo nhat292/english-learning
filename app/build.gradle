@@ -105,6 +105,9 @@ dependencies {
 
     //Permissions checking
     implementation "com.karumi:dexter:$rootProject.dexterVersion"
+
+    //Facebook
+    implementation "com.facebook.android:facebook-android-sdk:$rootProject.facebookSDKVersion"
 }
 
 configurations.all {

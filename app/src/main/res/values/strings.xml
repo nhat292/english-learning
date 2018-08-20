@@ -28,9 +28,15 @@
     <string name="some_error">Some Error Occurred!</string>
     <string name="connection_error">Internet connection lost!</string>
     <string name="cannot_play_the_audio">Cannot play the audio</string>
+    <string name="login_canceled">Login canceled</string>
+    <string name="logout_confirm_message">Are you sure you want to log out?</string>
 
+    <!--MainActivity-->
+    <string name="guest">Guest</string>
+    <string name="version_format">v%s</string>
 
     <!--Favorite Activity-->
+    <string name="no_favorites_yet">No favorites yet</string>
 
     <!--Detail Activity-->
     <string name="entire_sound">Listen entire sound</string>
@@ -62,5 +68,9 @@
     <string name="empty_screen">We do not have anything\nhere right now.</string>
     <string name="please_retry">Please Retry</string>
     <string name="retry">Retry</string>
+
+    <!--Facebook-->
+    <string name="facebook_app_id">377929692741834</string>
+    <string name="fb_login_protocol_scheme">fb377929692741834</string>
 
 </resources>

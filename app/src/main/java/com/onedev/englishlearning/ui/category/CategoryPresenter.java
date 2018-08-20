@@ -35,6 +35,10 @@ public class CategoryPresenter<V extends CategoryBaseView> extends BasePresenter
         Map<String, String> params = new HashMap<>();
         params.put("topic_id", String.valueOf(topicId));
         params.put("db_number", String.valueOf(App.getInstance().getmRuntimeObject().getDbNumber()));
+        User user = getDataManager().getUser();
+        if (user != null) {
+            params.put("user_id", String.valueOf(user.getId()));
+        }
         getCompositeDisposable().add(getDataManager()
                 .getCategories(params)
                 .subscribeOn(getSchedulerProvider().io())

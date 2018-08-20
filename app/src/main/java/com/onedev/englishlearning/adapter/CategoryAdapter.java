@@ -18,6 +18,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     private ArrayList<Category> mListItems;
     private ListItemClickCallback mCallback;
 
+    private boolean mShowingOnFavoritesPage;
+
     public CategoryAdapter(ArrayList<Category> items, ListItemClickCallback callback) {
         mListItems = items;
         mCallback = callback;
@@ -34,15 +36,29 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.onBind(position);
         Category item = mListItems.get(position);
-        holder.setTitle(String.valueOf(position + 1) + ". " + item.getName());
         holder.onItemClick(mCallback);
         holder.setOnTranslateClick(item.getName());
         holder.updateFavoriteButton(item.isAddedFavories());
         holder.onFavoriteClick(mCallback);
+        if (mShowingOnFavoritesPage) {
+            holder.setTitle(item.getName());
+            if (item.getType() == Category.TYPE_DB1) {
+                holder.setCardBackgroundColor(R.color.cyan);
+            } else {
+                holder.setCardBackgroundColor(R.color.light_gray);
+            }
+        } else {
+            holder.setTitle(String.valueOf(position + 1) + ". " + item.getName());
+        }
     }
 
     @Override
     public int getItemCount() {
         return mListItems.size();
+    }
+
+
+    public void setShowingOnFavoritesPage(boolean showingOnFavoritesPage) {
+        mShowingOnFavoritesPage = showingOnFavoritesPage;
     }
 }

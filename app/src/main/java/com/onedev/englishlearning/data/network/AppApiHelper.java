@@ -4,6 +4,7 @@ package com.onedev.englishlearning.data.network;
 import com.onedev.englishlearning.App;
 import com.onedev.englishlearning.data.network.model.BlogResponse;
 import com.onedev.englishlearning.data.network.model.CategoryResponse;
+import com.onedev.englishlearning.data.network.model.FavoritesResponse;
 import com.onedev.englishlearning.data.network.model.LoginRequest;
 import com.onedev.englishlearning.data.network.model.LoginResponse;
 import com.onedev.englishlearning.data.network.model.LogoutResponse;
@@ -136,6 +137,24 @@ public class AppApiHelper implements ApiHelper {
                 .addUrlEncodeFormBodyParameter(params)
                 .build()
                 .getObjectObservable(SimpleResponse.class);
+    }
+
+    @Override
+    public Observable<LoginResponse> login(Map<String, String> params) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LOGIN)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addUrlEncodeFormBodyParameter(params)
+                .build()
+                .getObjectObservable(LoginResponse.class);
+    }
+
+    @Override
+    public Observable<FavoritesResponse> getFavorites(Map<String, String> params) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GET_FAVORITES)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addUrlEncodeFormBodyParameter(params)
+                .build()
+                .getObjectObservable(FavoritesResponse.class);
     }
 }
 

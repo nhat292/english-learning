@@ -56,4 +56,6 @@ ext {
     mockitoVersion = '2.7.1'
 
     dexterVersion = '4.2.0';
+
+    facebookSDKVersion = '[4,5)';
 }

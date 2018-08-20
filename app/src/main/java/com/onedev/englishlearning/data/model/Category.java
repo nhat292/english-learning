@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Category {
 
+    public static final int TYPE_DB1 = 1;
+    public static final int TYPE_DB2 = 2;
+
     @SerializedName("id")
     @Expose
     private int id;
@@ -20,6 +23,10 @@ public class Category {
     @SerializedName("is_added_favorites")
     @Expose
     private boolean addedFavorites;
+
+    @SerializedName("type")
+    @Expose
+    private int type;
 
     public int getId() {
         return id;
@@ -51,5 +58,13 @@ public class Category {
 
     public void setAddedFavorites(boolean addedFavorites) {
         this.addedFavorites = addedFavorites;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
