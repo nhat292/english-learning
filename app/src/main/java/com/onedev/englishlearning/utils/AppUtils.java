@@ -33,6 +33,4 @@ public final class AppUtils {
                             .getString(R.string.app_google_play_store_link) + appPackageName)));
         }
     }
-
-
 }

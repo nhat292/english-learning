@@ -3,7 +3,7 @@ package com.onedev.englishlearning.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Category {
+public class  Category {
 
     public static final int TYPE_DB1 = 1;
     public static final int TYPE_DB2 = 2;

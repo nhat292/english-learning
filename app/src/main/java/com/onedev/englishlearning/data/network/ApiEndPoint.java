@@ -29,7 +29,6 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_OPEN_SOURCE = BuildConfig.BASE_URL
             + "/5926c34212000035026871cd";
 
-
     public static final String ENDPOINT_GET_TOPICS = BuildConfig.BASE_URL
             + "api/api.php/get-topics";
 

@@ -12,13 +12,4 @@
         android:text="@string/welcome"
         android:textSize="@dimen/text_size_huge"
         android:textStyle="bold" />
-
-    <TextView
-        style="@style/TextAppearance.Text.Light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:text="@string/copyright"
-        android:textSize="@dimen/text_size_very_small" />
 </RelativeLayout>
