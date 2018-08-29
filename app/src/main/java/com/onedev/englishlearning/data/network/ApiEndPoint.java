@@ -47,6 +47,9 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_GET_FAVORITES = BuildConfig.BASE_URL
             + "api/api.php/get-favorites";
 
+    public static final String ENDPOINT_GET_CONVERSATIONS= BuildConfig.BASE_URL
+            + "api/api.php/get-conversations";
+
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }

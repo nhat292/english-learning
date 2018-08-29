@@ -20,4 +20,5 @@ public final class AppConstants {
     public static final int USER_DATABASE_NUMBER = 0;
     public static final int DATABASE1_NUMBER = 1;
     public static final int DATABASE2_NUMBER = 2;
+    public static final int DATABASE3_NUMBER = 3;
 }

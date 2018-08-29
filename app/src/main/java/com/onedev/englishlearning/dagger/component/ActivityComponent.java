@@ -5,6 +5,7 @@ import com.onedev.englishlearning.dagger.PerActivity;
 import com.onedev.englishlearning.dagger.module.ActivityModule;
 import com.onedev.englishlearning.ui.about.AboutFragment;
 import com.onedev.englishlearning.ui.category.CategoryActivity;
+import com.onedev.englishlearning.ui.conversation.ConversationActivity;
 import com.onedev.englishlearning.ui.detail.DetailActivity;
 import com.onedev.englishlearning.ui.favorite.FavoriteActivity;
 import com.onedev.englishlearning.ui.feed.FeedActivity;
@@ -47,5 +48,7 @@ public interface ActivityComponent {
     void inject(FavoriteActivity activity);
 
     void inject(DetailActivity activity);
+
+    void inject(ConversationActivity activity);
 
 }

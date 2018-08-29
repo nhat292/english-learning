@@ -33,6 +33,10 @@
     <!--MainActivity-->
     <string name="guest">Guest</string>
     <string name="version_format">v%s</string>
+    <string name="library_format">Library %d</string>
+    <string name="english_by_topics">English by topics</string>
+    <string name="english_speaking_basics">English speaking basics</string>
+    <string name="english_conversations">English conversations</string>
 
     <!--Favorite Activity-->
     <string name="no_favorites_yet">No favorites yet</string>
@@ -45,6 +49,7 @@
     <string name="login">Login with Facebook</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="welcome_format">Welcome %s</string>
 
     <!--Login Validation-->
     <string name="empty_email">Please provide a non empty email.</string>

@@ -14,6 +14,7 @@ import com.onedev.englishlearning.data.network.ApiHelper;
 import com.onedev.englishlearning.data.network.NetworkCallback;
 import com.onedev.englishlearning.data.network.model.BlogResponse;
 import com.onedev.englishlearning.data.network.model.CategoryResponse;
+import com.onedev.englishlearning.data.network.model.ConversationResponse;
 import com.onedev.englishlearning.data.network.model.FavoritesResponse;
 import com.onedev.englishlearning.data.network.model.LoginRequest;
 import com.onedev.englishlearning.data.network.model.LoginResponse;
@@ -171,6 +172,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<FavoritesResponse> getFavorites(Map<String, String> params) {
         return mApiHelper.getFavorites(params);
+    }
+
+    @Override
+    public Observable<ConversationResponse> getConversations(Map<String, String> params) {
+        return mApiHelper.getConversations(params);
     }
 
     @Override

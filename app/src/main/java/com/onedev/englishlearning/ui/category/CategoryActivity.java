@@ -8,12 +8,17 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.facebook.CallbackManager;
+import com.onedev.englishlearning.App;
 import com.onedev.englishlearning.R;
 import com.onedev.englishlearning.adapter.CategoryAdapter;
 import com.onedev.englishlearning.data.model.Category;
+import com.onedev.englishlearning.data.model.User;
 import com.onedev.englishlearning.data.network.model.CategoryResponse;
 import com.onedev.englishlearning.ui.base.BaseActivity;
+import com.onedev.englishlearning.ui.conversation.ConversationActivity;
 import com.onedev.englishlearning.ui.detail.DetailActivity;
+import com.onedev.englishlearning.utils.AppConstants;
 
 import java.util.ArrayList;
 
@@ -52,6 +57,8 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
     private CategoryAdapter mCategoryAdapter;
     private int mSelectedItemPosition;
 
+    private CallbackManager mCallbackManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,11 +93,18 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
         swipeToRefreshLayout.setOnRefreshListener(this);
 
         mCategoryAdapter = new CategoryAdapter(mListItems, (position, type) -> {
-            if(type == 0) {
-                startActivity(DetailActivity.getStartIntent(
-                        CategoryActivity.this,
-                        mListItems.get(position).getName(),
-                        mListItems.get(position).getId()));
+            if (type == 0) {
+                if (App.getInstance().getmRuntimeObject().getDbNumber() == AppConstants.DATABASE3_NUMBER) {
+                    startActivity(ConversationActivity.getStartIntent(
+                            CategoryActivity.this,
+                            mListItems.get(position).getName(),
+                            mListItems.get(position).getId()));
+                } else {
+                    startActivity(DetailActivity.getStartIntent(
+                            CategoryActivity.this,
+                            mListItems.get(position).getName(),
+                            mListItems.get(position).getId()));
+                }
             } else {
                 mSelectedItemPosition = position;
                 // 1-add, 0-remove
@@ -101,6 +115,9 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
         );
         recyclerView.setAdapter(mCategoryAdapter);
         mPresenter.getCategories(mTopicId, true);
+
+        mCallbackManager = CallbackManager.Factory.create();
+        mPresenter.initFacebookLogin(mCallbackManager);
     }
 
     @Override
@@ -122,7 +139,7 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
 
     @Override
     public void onAddOrRemoveSuccess() {
-        if(mListItems.get(mSelectedItemPosition).isAddedFavories()) {
+        if (mListItems.get(mSelectedItemPosition).isAddedFavories()) {
             mListItems.get(mSelectedItemPosition).setAddedFavorites(false);
         } else {
             mListItems.get(mSelectedItemPosition).setAddedFavorites(true);
@@ -132,6 +149,11 @@ public class CategoryActivity extends BaseActivity implements CategoryBaseView, 
 
     @Override
     public void onLoginRequires() {
-        showMessage("Login requires");
+        mPresenter.loginClick(this);
+    }
+
+    @Override
+    public void onLoginSuccess(User user) {
+        showMessage(String.format(getString(R.string.welcome_format), user.getName()));
     }
 }

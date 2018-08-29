@@ -79,6 +79,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.conversation.ConversationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.feed.FeedActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.main.MainActivity"

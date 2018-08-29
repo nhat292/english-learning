@@ -14,4 +14,6 @@ public interface CategoryBaseView extends BaseView {
     void onAddOrRemoveSuccess();
 
     void onLoginRequires();
+
+    void onLoginSuccess(User user);
 }

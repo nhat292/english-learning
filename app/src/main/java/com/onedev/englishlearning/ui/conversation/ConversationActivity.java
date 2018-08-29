@@ -1,4 +1,4 @@
-package com.onedev.englishlearning.ui.detail;
+package com.onedev.englishlearning.ui.conversation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,9 @@ import android.widget.TextView;
 
 import com.onedev.englishlearning.BuildConfig;
 import com.onedev.englishlearning.R;
-import com.onedev.englishlearning.adapter.DetailAdapter;
-import com.onedev.englishlearning.data.model.Sentence;
-import com.onedev.englishlearning.data.model.SentenceData;
-import com.onedev.englishlearning.data.network.model.SentenceResponse;
+import com.onedev.englishlearning.adapter.ConversationAdapter;
+import com.onedev.englishlearning.data.model.Conversation;
+import com.onedev.englishlearning.data.network.model.ConversationResponse;
 import com.onedev.englishlearning.ui.base.BaseActivity;
 import com.onedev.englishlearning.utils.TimeUtils;
 
@@ -32,20 +31,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DetailActivity extends BaseActivity implements DetailBaseView, SeekBar.OnSeekBarChangeListener {
+public class ConversationActivity extends BaseActivity implements ConversationBaseView, SeekBar.OnSeekBarChangeListener {
 
     private static final String EXTRA_TITLE = "EXTRA_TITLE";
     private static final String EXTRA_CATEGORY_ID = "EXTRA_CATEGORY_ID";
 
     public static Intent getStartIntent(Context context, String title, int categoryId) {
-        Intent intent = new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(context, ConversationActivity.class);
         intent.putExtra(EXTRA_TITLE, title);
         intent.putExtra(EXTRA_CATEGORY_ID, categoryId);
         return intent;
     }
 
     @Inject
-    DetailMvpPresenter<DetailBaseView> mPresenter;
+    ConversationMvpPresenter<ConversationBaseView> mPresenter;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -63,18 +62,16 @@ public class DetailActivity extends BaseActivity implements DetailBaseView, Seek
     RecyclerView recyclerView;
 
     private int mCategoryId;
-    private ArrayList<Sentence> mListItems = new ArrayList<>();
-    private DetailAdapter mDetailAdapter;
-    private SentenceData mSentenceData;
-    private int mSelectedItem;
-
-    private MediaPlayer mEntireSoundMediaPlayer, mShortSoundMediaPlayer;
+    private ArrayList<Conversation> mListItems = new ArrayList<>();
+    private ConversationAdapter mAdapter;
+    private String mEntireSoundUrl;
+    private MediaPlayer mEntireSoundMediaPlayer;
     private Timer mTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_conversation);
 
         getActivityComponent().inject(this);
 
@@ -83,6 +80,8 @@ public class DetailActivity extends BaseActivity implements DetailBaseView, Seek
         mPresenter.onAttach(this);
 
         setUp();
+
+        mPresenter.getConversations(mCategoryId);
     }
 
     @Override
@@ -90,7 +89,6 @@ public class DetailActivity extends BaseActivity implements DetailBaseView, Seek
         super.onDestroy();
         stopUpdateTimer();
         releaseMedia(mEntireSoundMediaPlayer);
-        releaseMedia(mShortSoundMediaPlayer);
     }
 
     @OnClick(R.id.nav_back_btn)
@@ -106,8 +104,6 @@ public class DetailActivity extends BaseActivity implements DetailBaseView, Seek
                 setImageButton(R.drawable.ic_play);
                 stopUpdateTimer();
             } else {
-                releaseMedia(mShortSoundMediaPlayer);
-                updateAdapterStopAllSound();
                 mEntireSoundMediaPlayer.start();
                 setImageButton(R.drawable.ic_pause);
                 startUpdateTimer();
@@ -129,24 +125,16 @@ public class DetailActivity extends BaseActivity implements DetailBaseView, Seek
 
         seekBarEntireSound.setOnSeekBarChangeListener(this);
 
-        mDetailAdapter = new DetailAdapter(mListItems, (position, type) -> {
-            mSelectedItem = position;
-            updateAdapterStopAllSound();
-            mListItems.get(position).setPlaying(true);
-            mDetailAdapter.notifyItemChanged(position);
-            playShortSound(mListItems.get(position).getSoundUrl());
-        });
-        recyclerView.setAdapter(mDetailAdapter);
-
-        mPresenter.getSentences(mCategoryId, true);
+        mAdapter = new ConversationAdapter(mListItems);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
-    public void onGetSentencesSuccess(SentenceResponse response) {
+    public void onGetConversationSuccess(ConversationResponse response) {
         mListItems.clear();
-        mSentenceData = response.getData();
-        mListItems.addAll(response.getData().getSentences());
-        mDetailAdapter.notifyDataSetChanged();
+        mListItems.addAll(response.getData().getConversations());
+        mEntireSoundUrl = response.getData().getEntireSound();
+        mAdapter.notifyDataSetChanged();
         prepareMediaPlayer();
     }
 
@@ -154,7 +142,7 @@ public class DetailActivity extends BaseActivity implements DetailBaseView, Seek
         mEntireSoundMediaPlayer = new MediaPlayer();
         mEntireSoundMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
-            mEntireSoundMediaPlayer.setDataSource(BuildConfig.BASE_URL + mSentenceData.getEntireSound());
+            mEntireSoundMediaPlayer.setDataSource(BuildConfig.BASE_URL + mEntireSoundUrl);
             mEntireSoundMediaPlayer.prepareAsync();
             mEntireSoundMediaPlayer.setOnPreparedListener(mediaPlayer -> {
                 txtTotalDuration.setText(TimeUtils.milliSecondsToTimer(mEntireSoundMediaPlayer.getDuration()));
@@ -164,30 +152,6 @@ public class DetailActivity extends BaseActivity implements DetailBaseView, Seek
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void playShortSound(String soundUrlEndPoint) {
-        if (mEntireSoundMediaPlayer != null && mEntireSoundMediaPlayer.isPlaying()) {
-            mEntireSoundMediaPlayer.pause();
-            imgBtnPlayPause.setImageResource(R.drawable.ic_play);
-            stopUpdateTimer();
-        }
-        releaseMedia(mShortSoundMediaPlayer);
-        mShortSoundMediaPlayer = new MediaPlayer();
-        mShortSoundMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-            mShortSoundMediaPlayer.setDataSource(BuildConfig.BASE_URL + soundUrlEndPoint);
-            mShortSoundMediaPlayer.prepareAsync();
-            mShortSoundMediaPlayer.setOnPreparedListener(MediaPlayer::start);
-            mShortSoundMediaPlayer.setOnCompletionListener(mediaPlayer -> {
-                mListItems.get(mSelectedItem).setPlaying(false);
-                mDetailAdapter.notifyItemChanged(mSelectedItem);
-                releaseMedia(mediaPlayer);
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void releaseMedia(MediaPlayer mediaPlayer) {
@@ -200,15 +164,6 @@ public class DetailActivity extends BaseActivity implements DetailBaseView, Seek
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private void updateAdapterStopAllSound() {
-        for (int i = 0; i < mListItems.size(); i++) {
-            if (mListItems.get(i).isPlaying()) {
-                mListItems.get(i).setPlaying(false);
-                mDetailAdapter.notifyItemChanged(i);
-            }
         }
     }
 

@@ -15,6 +15,9 @@ import com.onedev.englishlearning.ui.about.AboutPresenter;
 import com.onedev.englishlearning.ui.category.CategoryBaseView;
 import com.onedev.englishlearning.ui.category.CategoryMvpPresenter;
 import com.onedev.englishlearning.ui.category.CategoryPresenter;
+import com.onedev.englishlearning.ui.conversation.ConversationBaseView;
+import com.onedev.englishlearning.ui.conversation.ConversationMvpPresenter;
+import com.onedev.englishlearning.ui.conversation.ConversationPresenter;
 import com.onedev.englishlearning.ui.detail.DetailBaseView;
 import com.onedev.englishlearning.ui.detail.DetailMvpPresenter;
 import com.onedev.englishlearning.ui.detail.DetailPresenter;
@@ -175,6 +178,12 @@ public class ActivityModule {
     @Provides
     DetailMvpPresenter<DetailBaseView> provideDetailMvpPresenter(
             DetailPresenter<DetailBaseView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ConversationMvpPresenter<ConversationBaseView> provideConversationMvpPresenter(
+            ConversationPresenter<ConversationBaseView> presenter) {
         return presenter;
     }
 }

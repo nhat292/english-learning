@@ -4,6 +4,7 @@ package com.onedev.englishlearning.data.network;
 
 import com.onedev.englishlearning.data.network.model.BlogResponse;
 import com.onedev.englishlearning.data.network.model.CategoryResponse;
+import com.onedev.englishlearning.data.network.model.ConversationResponse;
 import com.onedev.englishlearning.data.network.model.FavoritesResponse;
 import com.onedev.englishlearning.data.network.model.LoginRequest;
 import com.onedev.englishlearning.data.network.model.LoginResponse;
@@ -49,4 +50,6 @@ public interface ApiHelper {
     Observable<LoginResponse> login(Map<String, String> params);
 
     Observable<FavoritesResponse> getFavorites(Map<String, String> params);
+
+    Observable<ConversationResponse> getConversations(Map<String, String> params);
 }

@@ -25,12 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.CallbackManager;
-import com.facebook.login.LoginManager;
 import com.onedev.englishlearning.App;
 import com.onedev.englishlearning.BuildConfig;
 import com.onedev.englishlearning.R;
@@ -39,7 +35,6 @@ import com.onedev.englishlearning.data.model.MainLibrary;
 import com.onedev.englishlearning.data.model.User;
 import com.onedev.englishlearning.ui.about.AboutFragment;
 import com.onedev.englishlearning.ui.base.BaseActivity;
-import com.onedev.englishlearning.ui.custom.RoundedImageView;
 import com.onedev.englishlearning.ui.dialog.AppDialog;
 import com.onedev.englishlearning.ui.dialog.DialogCallback;
 import com.onedev.englishlearning.ui.favorite.FavoriteActivity;
@@ -47,7 +42,6 @@ import com.onedev.englishlearning.ui.topic.TopicActivity;
 import com.onedev.englishlearning.utils.AppConstants;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -230,8 +224,9 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
         // Setup recyclerView
         mMainLibraries = new ArrayList<>();
-        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 1", "Lorem lorem lorem lorem lorem", AppConstants.DATABASE1_NUMBER));
-        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, "Library 2", "Lorem lorem lorem lorem lorem", AppConstants.DATABASE2_NUMBER));
+        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, String.format(getString(R.string.library_format), 1), getString(R.string.english_by_topics), AppConstants.DATABASE1_NUMBER));
+        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, String.format(getString(R.string.library_format), 2), getString(R.string.english_speaking_basics), AppConstants.DATABASE2_NUMBER));
+        mMainLibraries.add(new MainLibrary(R.drawable.ic_book, String.format(getString(R.string.library_format), 3), getString(R.string.english_conversations), AppConstants.DATABASE3_NUMBER));
         mMainAdapter = new MainAdapter(mMainLibraries, (position, type) -> {
             App.getInstance().getmRuntimeObject().setDbNumber(mMainLibraries.get(position).getDbNumber());
             startActivity(TopicActivity.getStartIntent(MainActivity.this, mMainLibraries.get(position).getTitle()));
@@ -285,6 +280,7 @@ public class MainActivity extends BaseActivity implements MainBaseView {
 
     @Override
     public void onLoginSuccess(User user) {
+        showMessage(String.format(getString(R.string.welcome_format), user.getName()));
         updateUserUI(user);
     }
 
